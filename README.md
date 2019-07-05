@@ -58,7 +58,7 @@ Hello
 
 The earlier type of hello:
 
-```
+```ocaml
 val hello : (string -> 'a) * (int -> 'b) -> 'c = <fun>
 ```
 
@@ -237,7 +237,7 @@ end
 
 Here is how we can use it:
 
-```
+```ocaml
 module DoItUnix  = struct
  type 'a io = 'a
  let (>>) x y = ignore x; y
