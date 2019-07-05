@@ -184,6 +184,7 @@ module Hello :
 
 Here is how we can use it:
 
+```ocaml
 module DoItUnix  = struct
  type 'a io = 'a
  let (>>) x y = ignore x; y
@@ -277,5 +278,4 @@ let _ = test ()
 - : unit code = .<
 while true do Stdlib.prerr_endline "Hello"; Unix.sleep 1 done>. 
 *)
-
-
+```
