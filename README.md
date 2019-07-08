@@ -282,5 +282,3 @@ let _ = test ()
 - : unit code = .<while true do Stdlib.prerr_endline "Hello"; Unix.sleep 1 done>. 
 *)
 ```
-
-
