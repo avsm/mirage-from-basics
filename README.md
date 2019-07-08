@@ -58,7 +58,7 @@ Hello
 
 The earlier type of hello:
 
-```
+```ocaml
 val hello : (string -> 'a) * (int -> 'b) -> 'c = <fun>
 ```
 
@@ -195,11 +195,12 @@ let test () =
  let module T = struct include DoItUnix let sleep = Unix.sleep end in
  let module M = Hello(C)(T) in
  M.hello ()
+```
 
-(* A bit of more abstraction: if we mean run forever, it would be
-  better expressed as a combinator
-*)
+A bit of more abstraction: if we mean run forever, it would be
+better expressed as a combinator.
 
+```ocaml
 module type DoIt = sig
  type 'a io
  val (>>) : 'a io -> unit io -> unit io
@@ -232,9 +233,11 @@ module Hello(C:Console)(T:Time with type 'a io = 'a C.io) = struct
      sleep 1
 
 end
+```
 
-(* Here is how we can use it *)
+Here is how we can use it:
 
+```ocaml
 module DoItUnix  = struct
  type 'a io = 'a
  let (>>) x y = ignore x; y
@@ -246,11 +249,12 @@ let test () =
  let module T = struct include DoItUnix let sleep = Unix.sleep end in
  let module M = Hello(C)(T) in
  M.hello ()
+```
 
-(* But we can also do something else *)
-(* Please do note that 'a code IS NOT a monad. It is not even applicative!
-*)
+But we can also do something else.
+Please do note that 'a code IS NOT a monad. It is not even applicative!
 
+```ocaml
 module DoItUnixC  = struct
  type 'a io = 'a code
  let (>>) x y = .<.~x; .~y>.
@@ -275,7 +279,6 @@ val test : unit -> unit code = <fun>
 
 let _ = test ()
 (*
-- : unit code = .<
-while true do Stdlib.prerr_endline "Hello"; Unix.sleep 1 done>. 
+- : unit code = .<while true do Stdlib.prerr_endline "Hello"; Unix.sleep 1 done>. 
 *)
 ```
